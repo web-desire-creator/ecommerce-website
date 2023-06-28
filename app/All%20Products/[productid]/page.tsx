@@ -20,8 +20,8 @@ export default function Page({ params }: { params: { productid: string } }) {
 
     return (
         <div>
-            {data.filter((unit: any) => unit.id == params.productid).map((item: any) => (
-                <div className="flex flex-col md:flex-row md:gap-x-24 gap-y-10">
+            {data.filter((unit: any) => unit.id == params.productid).map((item: any, index) => (
+                <div key={index} className="flex flex-col md:flex-row md:gap-x-24 gap-y-10">
                     <Order key={item.id} image={item.image} name={item.name} price={item.price} />
                 </div>
             ))}

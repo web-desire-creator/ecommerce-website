@@ -21,8 +21,8 @@ export default function Page({ params }: { params: { slug: string } }) {
         fetchData();
     }, []);
     return <div className="grid grid-cols-1 md:grid-cols-4 gap-20">
-        {data.filter((unit: any) => unit.catagory === params.slug).map((item: any) => (
-            <div>
+        {data.filter((unit: any) => unit.catagory === params.slug).map((item: any, index) => (
+            <div key={index}>
                 <Link href={`/All%20Products/${item.id}`}>
                     <ProductDisplay key={item.id} img={item.image} name={item.name} price={item.price} />
                 </Link>

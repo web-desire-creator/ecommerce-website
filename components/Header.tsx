@@ -26,8 +26,8 @@ export default function Header() {
       </div>
       <div>
         <ul className="w-0 invisible md:w-full md:visible flex gap-x-20">
-          {menuitems.map((item)=>(
-            <div><Link href={`/${item}`}>{item}</Link></div>
+          {menuitems.map((item, index)=>(
+            <div key={index}><Link href={`/${item}`}>{item}</Link></div>
           ))}
         </ul>
       </div>
@@ -48,19 +48,19 @@ export default function Header() {
           </MenubarTrigger>
           <MenubarContent>
             <MenubarItem>
-              <Link href="/female">Female</Link>{" "}
+              <Link href="/Female">Female</Link>{" "}
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem>
-              <Link href="/male">Male</Link>
+              <Link href="/Male">Male</Link>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem>
-              <Link href="/female">Kids</Link>
+              <Link href="/Kids">Kids</Link>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem>
-              <Link href="/products">All Products</Link>
+              <Link href="/All%20Products">All Products</Link>
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem>

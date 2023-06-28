@@ -16,6 +16,7 @@ export const getProductsData = async () => {
   return res;
 }
 
+
 export default async function Products() {
   const data = await getProductsData();
   console.log(data)
@@ -36,8 +37,8 @@ export default async function Products() {
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          {data.map((item: any) => (
-            <SwiperSlide>
+          {data.map((item: any, index:any) => (
+            <SwiperSlide key={index}>
               <Link href={`/All%20Products/${item.id}`}>
                 <ProductDisplay
                   key={item.id}
@@ -57,8 +58,8 @@ export default async function Products() {
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          {data.map((item: any) => (
-            <SwiperSlide>
+          {data.map((item: any, index:any) => (
+            <SwiperSlide key={index}>
               <Link href={`/All%20Products/${item.id}`}>
                 <ProductDisplay
                   key={item.id}
