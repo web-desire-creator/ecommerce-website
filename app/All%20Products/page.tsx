@@ -1,19 +1,33 @@
-import { products } from "@/lib/utlis/mock"
+"use client"
 import ProductDisplay from "@/components/ProductDisplay"
-import { StaticImageData } from "next/image"
+import React, { useEffect, useState } from 'react';
 import Link from "next/link"
+import { getProductsData } from "@/app/views/Products"
 export default function page() {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await getProductsData();
+                setData(result);
+            } catch (error) {
+                // Handle any errors that occur during the async operation
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
-        {
-        
-        products.map((item)=>(
-            <div>
-                <Link href={`/All%20Products/${item.name}`}>
-                <ProductDisplay img= {item.image as StaticImageData} name={item.name} price={item.price}/>
-                </Link>
-            </div>
-        ))}
-    </div>
-  )
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-20">
+            {
+                data.map((item: any) => (
+                    <div>
+                        <Link href={`/All%20Products/${item.id}`}>
+                            <ProductDisplay key={item.id} img={item.image} name={item.name} price={item.price} />
+                        </Link>
+                    </div>
+                ))}
+        </div>
+    )
 }

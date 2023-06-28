@@ -1,12 +1,24 @@
 "use client";
 import ProductDisplay from "@/components/ProductDisplay";
 import React from "react";
-import { products } from "@/lib/utlis/mock";
-import { StaticImageData } from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
-export default function Products() {
+import { client } from "@/sanity/lib/client"
+export const getProductsData = async () => {
+  const res = await client.fetch(`*[_type=="product"]{
+    id,
+    name,
+    catagory,
+    price,
+    image
+  }`);
+  return res;
+}
+
+export default async function Products() {
+  const data = await getProductsData();
+  console.log(data)
   return (
     <div className="mt-20">
       <div className="flex flex-col items-center">
@@ -20,19 +32,19 @@ export default function Products() {
       <div className="invisible md:visible">
         <Swiper
           spaceBetween={50}
-          slidesPerView={3}
+          slidesPerView={4}
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          {products.map((item) => (
+          {data.map((item: any) => (
             <SwiperSlide>
-              <Link href={`/All%20Products/${item.name}`}>
-              <ProductDisplay
-                key={item.id}
-                img={item.image as StaticImageData}
-                name={item.name}
-                price={item.price}
-              />
+              <Link href={`/All%20Products/${item.id}`}>
+                <ProductDisplay
+                  key={item.id}
+                  img={item.image}
+                  name={item.name}
+                  price={item.price}
+                />
               </Link>
             </SwiperSlide>
           ))}
@@ -45,14 +57,16 @@ export default function Products() {
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          {products.map((item) => (
+          {data.map((item: any) => (
             <SwiperSlide>
-              <ProductDisplay
-                key={item.id}
-                img={item.image as StaticImageData}
-                name={item.name}
-                price={item.price}
-              />
+              <Link href={`/All%20Products/${item.id}`}>
+                <ProductDisplay
+                  key={item.id}
+                  img={item.image}
+                  name={item.name}
+                  price={item.price}
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
