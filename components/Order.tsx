@@ -11,8 +11,22 @@ const builder = imageUrlBuilder(client)
 function urlFor(source: any) {
   return builder.image(source)
 }
-export default function Order(props: { image: any; name: string; price: number }) {
+export default function Order(props: {id:number; image: any; name: string; price: number }) {
   const [number, setNumber] = useState(1);
+  const [size,setsize]= useState("s")
+  const handleAddtoCart=async()=>{
+    const res =await fetch("/api/cart",{
+      method:"POST",
+      body:JSON.stringify({
+        product_id:props.name,
+        quantity: number,
+        size: size,
+        price: number*props.price
+      })
+    })
+    const result =await res.json()
+    console.log(result)
+  }
   return (
     <div>
       <div className="flex flex-col md:flex-row md:gap-x-24 gap-y-10">
@@ -33,23 +47,23 @@ export default function Order(props: { image: any; name: string; price: number }
             <RadioGroup defaultValue="comfortable" className="flex gap-x-4">
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="XS" id="r1" />
-                <Label htmlFor="r1">XS</Label>
+                <Label onClick={()=>setsize("xs")} htmlFor="r1">XS</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="S" id="r2" />
-                <Label htmlFor="r2">S</Label>
+                <Label onClick={()=>setsize("s")} htmlFor="r2">S</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="M" id="r3" />
-                <Label htmlFor="r3">M</Label>
+                <Label onClick={()=>setsize("m")} htmlFor="r3">M</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="L" id="r4" />
-                <Label htmlFor="r4">L</Label>
+                <Label onClick={()=>setsize("l")} htmlFor="r4">L</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="XL" id="r5" />
-                <Label htmlFor="r5">XL</Label>
+                <Label onClick={()=>setsize("xl")} htmlFor="r5">XL</Label>
               </div>
             </RadioGroup>
           </ul>
@@ -73,7 +87,7 @@ export default function Order(props: { image: any; name: string; price: number }
             }}>+</Button>
           </div>
           <div>
-            <Button className="py-10 flex flex-1 gap-x-2 w-40 rounded-none">
+            <Button onClick={handleAddtoCart} className="py-10 flex flex-1 gap-x-2 w-40 rounded-none">
               {" "}
               <ShoppingCart /> <div>Add to Cart</div>
             </Button>

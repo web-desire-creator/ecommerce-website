@@ -35,10 +35,11 @@ export default function Header() {
         <Search className="flex-none" />
         <Input placeholder="What are you looking for?"/>
       </div>
-
+      <Link href={"/cart"}>
       <div className="flex w-0 h-0 invisible md:visible md:flex-none md:w-10 md:h-10">
         <ShoppingCart />
       </div>
+      </Link>
       <Menubar  className="md:w-0 md:hidden">
         <MenubarMenu>
           <MenubarTrigger>
@@ -64,7 +65,7 @@ export default function Header() {
             </MenubarItem>
             <MenubarSeparator />
             <MenubarItem>
-              <Link href="/">
+              <Link href="/cart">
               <div className="flex visible flex-none w-10 h-10">
         <ShoppingCart />
               </div>
